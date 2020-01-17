@@ -6,7 +6,7 @@ layout: default
 
 # **Ahri Bot**
 
-#### {{ site.data.stats.servers }} Stats
+#### Proudly used by **{{ site.data.stats.servers}}** servers
 
 ##### A user-friendly League of Legends bot for discord, developed for the community as a passion project.
 
