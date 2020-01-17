@@ -13,14 +13,15 @@ h3 {font-size: 36px;}
 .underline {text-decoration: underline;}
 .verdana {font-family: Verdana, Geneva, sans-serif}
 .borderg {border: 5px solid #292929;}
-.stick {position: sticky; top: 0;}
+.stick {position: sticky; position: -webkit-sticky; bottom: 0;}
+.imgright {float: right;}
 .nmargin {margin-top: -8px; margin-left:-8px; margin-right:-8px;}
 .nmarginlr {margin-left:-9px; margin-right:-8px;}
 .textcenter {text-align: center; margin-left: auto; margin-right: auto;}
 .tbsize {background-color: #292929; height:80px; width: 1894.5px;}
 .txwhite {color: white;}
 .noscroll {overflow-x: hidden;}
-.bovr {z-index:2;}
+.bovr {z-index:2; box-shadow: 0px 6px #d998a2;}
 .nsush {position: absolute; top:285px; left:580px;}
 .up {margin-top: -26px;}
 .padw {padding: 20px;}
@@ -43,7 +44,7 @@ h3 {font-size: 36px;}
 .bcheck:hover {background-color: #9E4626;}
 .lt {margin-top: -170px; margin-left:1100px;}
 span {color: white; transition-duration:0.4s;}
-span:hover {color: #8688B5}
+span:hover {color: #8688B5; cursor: pointer;}
 .st1 {margin-left:120px; margin-top:100px;}
 .st2 {margin-left:1108px; margin-top:200px;}
 .st3 {margin-left:100px; margin-top:-2px;}
