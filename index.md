@@ -2,7 +2,7 @@
 layout: default
 ---
 
-![Ahri](https://cdn.discordapp.com/attachments/205062074307575819/666806853895979018/BeFunky-photo.png)
+![Ahri](https://cdn.discordapp.com/attachments/593493405313663042/667510744752848896/AhriBot.png)
 
 # **Ahri Bot**
 
