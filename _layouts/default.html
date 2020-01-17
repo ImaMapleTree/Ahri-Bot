@@ -13,6 +13,7 @@
     <script src="{{ '/assets/js/modernizr.js' | relative_url }}"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="{{ '/assets/js/headsmart.min.js' | relative_url }}"></script>
+	<script src="{{ 'assets/js/ahri-bot.js' | relative_url }}" type="text/javascript"></script>
 	<link rel="icon" href="{{ 'assets/images/AhriBotfavicon.png' | relative_url}}" type="image/x-icon" />
     <script>
       $(document).ready(function () {
@@ -22,13 +23,15 @@
 	<div id="container">
 		<div class="verdana borderg textcenter txwhite tbsize bovr">
 			<div class="lazy newimage">
+				<a href="https://discordapp.com/invite/RnCnj2p" target="_blank">
 				<img src="https://cdn.discordapp.com/attachments/593493405313663042/667510744752848896/AhriBot.png" width="80" height="80">
+				</a>
 			</div>
 			<div class="txtcon">
 				<h3 style=margin-top:32px;>
-					<span style=padding:50px; class="txth" onclick="GoP('Menu')">Add to Server</span>
-					<span style=padding:50px; class="txth" onclick="GoP('OrderOnline')">Command Help</span>
-					<span style=padding:50px; class="txth" onclick="GoP('Catering')">Donate</span>
+					<span style=padding:50px; class="txth" onclick="GoPage('https://discordapp.com/api/oauth2/authorize?client_id=659987132986818560&permissions=268958832&scope=bot', tab=true)">Add to Server</span>
+					<span style=padding:50px; class="txth" onclick="GoPage('help.html')">Command Help</span>
+					<span style=padding:50px; class="txth" onclick="GoPage('https://www.patreon.com/ahribotl, tab=True')">Donate</span>
 				</h3>
 			</div>
 		</div>
