@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" media="screen">
     <link rel="stylesheet" href="{{ '/assets/css/mobile.css' | relative_url }}" media="handheld, only screen and (max-device-width:640px)">
     <link rel="stylesheet" href="{{ '/assets/css/non-screen.css' | relative_url }}" media="handheld, only screen and (max-device-width:640px)">
+	<link rel="stylesheet" href="{{ '/assets/css/bar-style.css' | relative_url }}">
 
     <script src="{{ '/assets/js/modernizr.js' | relative_url }}"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
@@ -18,11 +19,28 @@
         $('#main_content').headsmart()
       })
     </script>
+	<div id="container">
+		<div class="verdana borderg textcenter txwhite tbsize bovr">
+			<div class="lazy newimage">
+				<img src="https://cdn.discordapp.com/attachments/593493405313663042/667510744752848896/AhriBot.png" width="80" height="80">
+			</div>
+			<div class="txtcon">
+				<h3 style=margin-top:32px;>
+					<span style=padding:50px; class="txth" onclick="GoP('Menu')">Add to Server</span>
+					<span style=padding:50px; class="txth" onclick="GoP('OrderOnline')">Command Help</span>
+					<span style=padding:50px; class="txth" onclick="GoP('Catering')">Donate</span>
+				</h3>
+			</div>
+		</div>
 
 {% seo %}
+	
+
+
+
   </head>
 
-  <body>
+  <body class="noscroll">
     <div class="shell">
 
       <section id="main_content">
