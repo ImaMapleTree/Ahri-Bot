@@ -1,0 +1,71 @@
+/* #container {width: 1905px; position: absolute;} */
+troll {height: auto; width:auto;}
+#test {margin-left:800px; margin-top: -150px;}
+.black {background-color: black}
+img {max-width: 100%; max-height: 100%;}
+h3 {font-size: 36px;}
+.fit {object-fit: fill;}
+.right {text-align: right;}
+.center {text-align: center;}
+.impact {font-family: Impact, Charcoal, sans-serif}
+.arialb {font-family: "Arial Black", Gadget, sans-serif}
+.forced {position: fixed;}
+.underline {text-decoration: underline;}
+.verdana {font-family: Verdana, Geneva, sans-serif}
+.borderg {border: 5px solid #292929;}
+.stick {position: sticky; top: 0;}
+.nmargin {margin-top: -8px; margin-left:-8px; margin-right:-8px;}
+.nmarginlr {margin-left:-9px; margin-right:-8px;}
+.textcenter {text-align: center; margin-left: auto; margin-right: auto;}
+.tbsize {background-color: #292929; height:80px; width: 1894.5px;}
+.txwhite {color: white;}
+.noscroll {overflow-x: hidden;}
+.bovr {z-index:2;}
+.nsush {position: absolute; top:285px; left:580px;}
+.up {margin-top: -26px;}
+.padw {padding: 20px;}
+.bcheck {type: button; padding: 5px 20px; background-color: #FF713D; width: 25%;  text-align: center; border: 3px solid black; border-radius: 12px; color: white; shadow: 3px 3px 3px black; transition-duration:0.4s;}
+.txtcon {margin-top: -45px; height: 10px; padding: 25px; margin-left:auto;}
+.lazy {display: block;}
+.newimage {float: left; margin-left: 20px;}
+.bbar {padding: 8px; width:1890px; background-color: black;}
+.inline {display: inline-block;}
+.float {float:left; width: 50%; padding: 5px;}
+.row::after {content: ""; clear: both; display: table;}
+.tile1 {margin-left: 932px; margin-top:-949px; border-color: red;}
+.darker {position: relative; opacity: 0.5; height:1875px; width:1865.5px; background-color:black; margin-top: -1898px; margin-left:11px;}
+.tt1 {margin-top: -1690px; margin-left:90px; z-index:1;}
+.tt2 {margin-top: -1792px; margin-left:1047px; z-index:1;}
+.tt3 {margin-top: 1065px; margin-left:112px;}
+.tt4 {margin-top: -97px; margin-left:1160px;}
+.relative {position: relative;}
+.bboar {border-bottom: 5px solid black;}
+.bcheck:hover {background-color: #9E4626;}
+.lt {margin-top: -170px; margin-left:1100px;}
+span {color: white; transition-duration:0.4s;}
+span:hover {color: #8688B5}
+.st1 {margin-left:120px; margin-top:100px;}
+.st2 {margin-left:1108px; margin-top:200px;}
+.st3 {margin-left:100px; margin-top:-2px;}
+.st4 {margin-left:1115px; margin-top:2px;}
+.button2 {background-color: transparent; border: 2px solid white; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 200px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button2:hover {background-color:white; color:black;}
+.button3 {background-color: transparent; border: 2px solid white; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 255px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button3:hover {background-color:white; color:black;}
+.button4 {background-color: transparent; border: 2px solid white; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 185px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button4:hover {background-color:white; color:black;}
+.button5 {background-color: black; border: 2px solid black; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:0px; margin-left: 770px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button5:hover {background-color:white; color:black;}
+.button6 {type: button; background-color: transparent; border: 2px solid black; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:-300px; margin-left: 750px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button6:hover {background-color:white; color:black;}
+.obj {padding: 42px 370px;}
+.obj2 {padding: 42px 330px; margin-top:-100px; margin-left:15px;}
+.newstart {margin-top:630px; background-color: white; padding:100px; margin-left:-7px; margin-right:-7.5px;}
+.shadow {box-shadow: -0.5px 10px 5px grey;}
+.item {height:2000px; width:330px; background-color: grey;}
+.tevent {color:white; margin-left: 25px; margin-top: 30px; border-bottom: 5px solid #FF713D; transition-duration:0.4s; width: 170px; text-align:center;}
+.tevent:hover {color: #8688B5; border-color: black;}
+.fixed {position: fixed;}
+.static {position: static;}
+
+
