@@ -6,127 +6,35 @@ layout: default
 
 # **Ahri Bot**
 
-#### Proudly used by **{{ site.data.stats.servers}}** servers
+###### Proudly used by **{{ site.data.stats.servers}}** servers
 
 ##### A user-friendly League of Legends bot for discord, developed for the community as a passion project.
 
 Ahri has a handful of easy-to-use features that provide fun and useful information to users. 
 
-###### _Ahri bot is currently a work in progress, if you have any comments or suggestions head over to the support server and share them!_
+_Ahri bot is currently a work in progress, if you have any comments or suggestions head over to the support server and share them!_
 
+###### IMPORTANT
 
-There should be whitespace between paragraphs.
+### This website is still under development, for showcases I provided some temporary screenshots below.
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+##### The "summary" page of a summoner's profile
+![summary](https://imgur.com/p99cciP.png)
 
-# Header 1
+##### Page 2 shows the player's last match (build and kda)
+![lmbuild](https://imgur.com/WsAjeSp.png)
 
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
+##### Page 3 also shows the last match but gives damage and gold stats
+![lmkda](https://imgur.com/DWMh666.png)
 
-## Header 2
+##### Page 4 goes more in-depth on a player's statistical best/worst matchups
+![matchup](https://imgur.com/7ETik40.png)
 
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+##### Page 5 is shown when the player is in game and provides some basic-insight
+![live](https://imgur.com/M39mwqv.png)
 
-### Header 3
+##### Here is the friends list feature where you can add summoners you quickly want to check out
+![flist](https://imgur.com/bKKhWxv.png)
 
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
-
-#### Header 4
-
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-
-##### Header 5
-
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
+##### To see all of your friends' last match you can use showall and get a page for each friend
+![fshowall](https://imgur.com/OAIgzAZ.png)
