@@ -114,8 +114,20 @@ header, footer, section {
 
 div.shell {
   display: block;
-  width: 1200px;
+  width: 80vw;
   margin: 0 auto;
+  /* background-color: #726DA8; */
+  background-color: #EF626C;
+  -webkit-box-shadow: 0px 10px 4px 12px rgba(49,47,47,0.79);
+  -moz-box-shadow: 0px 10px 4px 12px rgba(49,47,47,0.79);
+  box-shadow: 0px 10px 4px 12px rgba(49,47,47,0.79);
+}
+
+body {
+  background: #F6E8EA;
+  font: normal normal 15px/1.5 Georgia, Palatino,” Palatino Linotype”, Times, “Times New Roman”, serif;
+  color: #DD7B5A;
+  -webkit-font-smoothing: antialiased;
 }
 
 a#forkme_banner {
@@ -268,7 +280,7 @@ span.banner-fix {
 }
 
 section#main_content {
-  z-index: 2;
+  z-index: 1;
   padding: 20px 82px 0;
   min-height:185px;
 }
@@ -363,13 +375,6 @@ footer span.octocat {
 
 /* content */
 
-body {
-  background: #FFB6C1;
-  font: normal normal 15px/1.5 Georgia, Palatino,” Palatino Linotype”, Times, “Times New Roman”, serif;
-  color: #DD7B5A;
-  -webkit-font-smoothing: antialiased;
-}
-
 a, a:hover {
   color: #417090;
 }
@@ -385,6 +390,7 @@ a:hover {
 h1,h2,h3,h4,h5,h6,h7 {
   font-family: 'Open Sans', Myriad, Calibri, sans-serif;
   font-weight: bold;
+  text-align: center;
 }
 
 p {
@@ -394,7 +400,7 @@ p {
   font-style: normal;
   font-variant: normal;
   line-height: 20px;
-  
+  text-align: center;
 }
 
 strong {
@@ -537,8 +543,8 @@ dd p:first-child {
 
 .header-level-1 {
   font-size: 3.85em;
-  border-bottom: .4em double #EEE5E9;
-  color: #69306D;
+  border-bottom: .4em double #F6E8EA;
+  color: #F6E8EA;
   text-align: center;
   margin: 0.6em 0 .2em;
   line-height: 1.2;
@@ -547,24 +553,23 @@ dd p:first-child {
 
 .header-level-2 {
   font-size: 1.58em;
-  color: #7c334f;
-  margin: .95em 0 .5em;
-  border-bottom: .1em solid #D3CCC1;
+  color: #BEE5BF;
+  margin: .3em 0 .3em;
+  /*border-bottom: .1em solid #D3CCC1;*/
   line-height: 1.2;
   padding-bottom: 10px
 }
 
 .header-level-3 {
-  margin: 20px 0 10px;
+  margin: .3em 0 .3em;
   font-size: 1.45em;
 }
 
 .header-level-4 {
   margin: .3em 0;
   font-size: 2.6em;
-  color: #FFFFFF;
   font-stretch: expanded;
-  color: #cd596b;
+  color: #FFBF46;
   text-align: center;
 }
 
@@ -580,7 +585,7 @@ dd p:first-child {
   font-style: normal;
   font-variant: normal;
   line-height: 20px;
-  color: #DD6A8F;
+  color: #BEE5BF;
 }
 
 .header-level-7 {

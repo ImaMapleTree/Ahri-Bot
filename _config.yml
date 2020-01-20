@@ -1,3 +1,5 @@
-Theme: jekyll-theme-midnight
-
+title: Ahri Bot
+description: Ahri is a user-friendly League of Legends bot for discord.
+show_downloads: false
+google_analytics:
 theme: jekyll-theme-merlot

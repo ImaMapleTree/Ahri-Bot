@@ -1,4 +1,4 @@
-/* #container {width: 1905px; position: absolute;} */
+/*#container {width: 100vh; position: absolute;} */
 troll {height: auto; width:auto;}
 #test {margin-left:800px; margin-top: -150px;}
 .black {background-color: black}
@@ -12,16 +12,17 @@ h3 {font-size: 36px;}
 .forced {position: fixed;}
 .underline {text-decoration: underline;}
 .verdana {font-family: Verdana, Geneva, sans-serif}
-.borderg {border: 5px solid #292929;}
+.borderg {border: 5px solid #312F2F;}
+.borderd {border-bottom: 8px solid #22181C;}
 .stick {position: sticky; position: -webkit-sticky; bottom: 0;}
 .imgright {float: right;}
 .nmargin {margin-top: -8px; margin-left:-8px; margin-right:-8px;}
 .nmarginlr {margin-left:-9px; margin-right:-8px;}
 .textcenter {text-align: center; margin-left: auto; margin-right: auto;}
-.tbsize {background-color: #292929; height:80px; width: 1894.5px;}
-.txwhite {color: white;}
+.tbsize {background-color: #3A3335; height:80px; width: 100vw;}
+.txwhite {color: #726DA8;}
 .noscroll {overflow-x: hidden;}
-.bovr {z-index:2; box-shadow: 0px 6px #d998a2;}
+.bovr {z-index:2; box-shadow: 0px 0px #485070;}
 .nsush {position: absolute; top:285px; left:580px;}
 .up {margin-top: -26px;}
 .padw {padding: 20px;}
@@ -43,17 +44,17 @@ h3 {font-size: 36px;}
 .bboar {border-bottom: 5px solid black;}
 .bcheck:hover {background-color: #9E4626;}
 .lt {margin-top: -170px; margin-left:1100px;}
-span {color: white; transition-duration:0.4s;}
+span {color: #FDF0D5; transition-duration:0.4s;}
 span:hover {color: #8688B5; cursor: pointer;}
 .st1 {margin-left:120px; margin-top:100px;}
 .st2 {margin-left:1108px; margin-top:200px;}
 .st3 {margin-left:100px; margin-top:-2px;}
 .st4 {margin-left:1115px; margin-top:2px;}
-.button2 {background-color: transparent; border: 2px solid white; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 200px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button2 {background-color: transparent; border: 2px solid white; color: #726DA8; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 200px; border-radius: 12px; height:25px; transition-duration:0.4s;}
 .button2:hover {background-color:white; color:black;}
-.button3 {background-color: transparent; border: 2px solid white; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 255px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button3 {background-color: transparent; border: 2px solid white; color: #726DA8; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 255px; border-radius: 12px; height:25px; transition-duration:0.4s;}
 .button3:hover {background-color:white; color:black;}
-.button4 {background-color: transparent; border: 2px solid white; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 185px; border-radius: 12px; height:25px; transition-duration:0.4s;}
+.button4 {background-color: transparent; border: 2px solid white; color: #726DA8; padding: 8px 32px; text-align: center; position:absolute; margin-top:60px; margin-left: 185px; border-radius: 12px; height:25px; transition-duration:0.4s;}
 .button4:hover {background-color:white; color:black;}
 .button5 {background-color: black; border: 2px solid black; color: white; padding: 8px 32px; text-align: center; position:absolute; margin-top:0px; margin-left: 770px; border-radius: 12px; height:25px; transition-duration:0.4s;}
 .button5:hover {background-color:white; color:black;}

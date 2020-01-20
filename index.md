@@ -2,19 +2,19 @@
 layout: default
 ---
 
-![Ahri](https://cdn.discordapp.com/attachments/593493405313663042/667510744752848896/AhriBot.png)
+![Ahri](https://cdn.discordapp.com/attachments/205062074307575819/668872521520513060/AhriBot2.png)
 
 # **Ahri Bot**
 
-###### Proudly used by **{{ site.data.stats.servers}}** servers
+#### Proudly used by **{{ site.data.stats.servers}}** servers
 
-##### A user-friendly League of Legends bot for discord, developed for the community as a passion project.
+## A user-friendly League of Legends bot for discord, developed for the community as a passion project.
 
 Ahri has a handful of easy-to-use features that provide fun and useful information to users. 
 
 _Ahri bot is currently a work in progress, if you have any comments or suggestions head over to the support server and share them!_
 
-###### IMPORTANT
+#### IMPORTANT
 
 ### This website is still under development, for showcases I provided some temporary screenshots below.
 
