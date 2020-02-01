@@ -16,9 +16,29 @@
 	<script src="{{ 'assets/js/ahri-bot.js' | relative_url }}" type="text/javascript"></script>
 	<link rel="icon" href="{{ 'assets/images/AhriBotfavicon.png' | relative_url}}" type="image/x-icon" />
     <script>
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
+       $(document).ready(function () {
+         $('#main_content').headsmart()
+       });
+	   $(window).load(function () {
+		$(".trigger_popup_fricc").click(function(){
+		   $('.hover_bkgr_fricc').show();
+		});
+		$('.popupCloseButton').click(function(){
+			$('.hover_bkgr_fricc').hide();
+		});
+		});
+		$(document).ready(function (){
+			var url = window.location.href
+			var ECC = url.split("#")[1]
+			if (ECC != undefined) {
+				$('.hover_bkgr_fricc').show();
+				ECCCheck()
+				}
+			var Expiration = new Date();
+			Expiration.setTime(Expiration.getTime() + 120000);
+			var expires = "expires=" + Expiration.toUTCString();
+			document.cookie = "ECC=" + ECC + ";" + expires + "path=/;"
+		});
     </script>
 	<div id="container">
 		<div class="verdana borderg textcenter txwhite tbsize bovr borderd">
@@ -32,9 +52,18 @@
 					<span style=padding:50px; class="txth" onclick="GoPage('https://discordapp.com/api/oauth2/authorize?client_id=659987132986818560&permissions=268958832&scope=bot', tab=true)">Add to Server</span>
 					<span style=padding:50px; class="txth" onclick="GoPage('help.html')">Command Help</span>
 					<span style=padding:50px; class="txth" onclick="GoPage('https://www.patreon.com/ahribot', tab=true)">Donate</span>
+					<span style=padding:50px; class="txth" onclick="Test()", tab=true">Test</span>
 				</h3>
 			</div>
 		</div>
+		
+	<div class="hover_bkgr_fricc">
+		<span class="helper">SID</span>
+		<div>
+			<div class="popupCloseButton">&times;</div>
+			<p>Upload Highlights!</p>
+		</div>
+	</div>
 
 {% seo %}
 	
