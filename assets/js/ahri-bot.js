@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import 'https://unpkg.com/react@16/umd/react.development.js';
 
 $(document).ready(function () {
 	$.getJSON("https://api.jsonbin.io/b/5e1ea24db236b871b3621d94/latest", function (json) {
