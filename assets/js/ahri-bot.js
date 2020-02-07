@@ -51,7 +51,7 @@ function CSFT(str, amount) {
 
 function CheckAhri() {
 	
-	var exampleSocket = new WebSocket("wss://107.217.234.59:25565", ["protocolOne", "protocolTwo"]);
+	var exampleSocket = new WebSocket("ws://107.217.234.59:25565", ["protocolOne", "protocolTwo"]);
 }
 
 
