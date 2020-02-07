@@ -118,6 +118,30 @@ span:hover {color: #8688B5; cursor: pointer;}
 .popupCloseButton:hover {
     background-color: #ccc;
 }
+#drop_zone {
+  border: 2px dashed #bbb;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 25px;
+  text-align: center;
+  font: 20pt bold 'Vollkorn';
+  color: #bbb;
+}
+.dead {
+	display: none;
+}
+.Bfiles {
+	font: 20pt bold 'Vollkorn';
+	color:#757575;
+	border: 2px dashed #bbb;
+	padding: 5px;
+	border-radius: 16px;
+}
+.Bfiles:hover {
+	cursor: pointer;
+	border: 2px dashed black;
+}
 .helper {color: white; opacity: 0;}
 
 
