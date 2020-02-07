@@ -51,7 +51,13 @@ function CSFT(str, amount) {
 
 function CheckAhri() {
 	
-	var exampleSocket = new WebSocket("ws://107.217.234.59:25565", ["protocolOne", "protocolTwo"]);
+	var net = require('net');
+
+	var client = new net.Socket();
+	client.connect(25565, '107.217.234.59', function() {
+		console.log('Connected');
+		client.write('Hello, server! Love, Client.');
+});
 }
 
 
