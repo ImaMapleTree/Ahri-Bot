@@ -49,17 +49,6 @@ function CSFT(str, amount) {
 	return output;
 };
 
-function CheckAhri() {
-	
-	var net = require('net');
-
-	var client = new net.Socket();
-	client.connect(25565, '107.217.234.59', function() {
-		console.log('Connected');
-		client.write('Hello, server! Love, Client.');
-});
-}
-
 
 function DEC(CL) {
 	var alphabet = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ").split("");
