@@ -36,126 +36,151 @@
 		</div>
 	</div>
 	
-	<button id="authorize_button" style="display: none;">Authorize</button>
-    <button id="signout_button" style="display: none;">Sign Out</button>
-
-    <pre id="content" style="white-space: pre-wrap;"></pre>
-
+	/**
     <script type="text/javascript">
-      // Client ID and API key from the Developer Console
-     var CLIENT_ID = '470810586360-9g7v7qd3sus5dopivtbebcu447r4mf2u.apps.googleusercontent.com';
-	 var API_KEY = 'AIzaSyAev1MMhuznuu7gXeDiQhWW4qXcdXMVO7I';
+		// Client ID and API key from the Developer Console
+		var CLIENT_ID = '470810586360-9g7v7qd3sus5dopivtbebcu447r4mf2u.apps.googleusercontent.com';
+		var API_KEY = 'AIzaSyAev1MMhuznuu7gXeDiQhWW4qXcdXMVO7I';
 
 		// Array of API discovery doc URLs for APIs used by the quickstart
-	 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+		var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 
 		// Authorization scopes required by the API; multiple scopes can be
 		// included, separated by spaces.
-	 var SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive';
+		var SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive';
+		
+		var access_token
 
-      var authorizeButton = document.getElementById('authorize_button');
-      var signoutButton = document.getElementById('signout_button');
+		function get_access_token_using_saved_refresh_token() {
+			// from the oauth playground
+			const refresh_token = "1//04ZTvrysIObh5CgYIARAAGAQSNwF-L9IrI-UpCU1JLPItWLXDYBikOlJBXFv1HJdOx92S43uEjrlap1L3BwL_-3VF-hSP7vNEo1A";
+			// from the API console
+			const client_id = "470810586360-9g7v7qd3sus5dopivtbebcu447r4mf2u.apps.googleusercontent.com";
+			// from the API console
+			const client_secret = "ZvfgUW5PRUWdsW6weRjFV574";
+			// from https://developers.google.com/identity/protocols/OAuth2WebServer#offline
+			const refresh_url = "https://www.googleapis.com/oauth2/v4/token";
 
-      /**
-       *  On load, called to load the auth2 library and API client library.
-       */
-      function handleClientLoad() {
-        gapi.load('client:auth2', initClient);
-      }
+			const post_body = `grant_type=refresh_token&client_id=${encodeURIComponent(client_id)}&client_secret=${encodeURIComponent(client_secret)}&refresh_token=${encodeURIComponent(refresh_token)}`;
 
-      /**
-       *  Initializes the API client library and sets up sign-in state
-       *  listeners.
-       */
-      function initClient() {
-        gapi.client.init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES
-        }).then(function () {
-          // Listen for sign-in state changes.
-          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+			let refresh_request = {
+				body: post_body,
+				method: "POST",
+				headers: new Headers({
+					'Content-Type': 'application/x-www-form-urlencoded'
+				})
+			}
 
-          // Handle the initial sign-in state.
-          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-          authorizeButton.onclick = handleAuthClick;
-          signoutButton.onclick = handleSignoutClick;
-        }, function(error) {
-          appendPre(JSON.stringify(error, null, 2));
-        });
-      }
+			// post to the refresh endpoint, parse the json response and use the access token to call files.list
+			fetch(refresh_url, refresh_request).then( response => {
+					return(response.json());
+				}).then( response_json =>  {
+					console.log(response_json);
+					access_token = response_json.access_token;
+			});
+		}
+		
+		function Upload() {
+			console.log(access_token)
+			const drive_url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media HTTP/1.1";
+			var file = outfiles[0];
+			let drive_request = {
+				method: "POST",
+				headers: new Headers({
+					'Content-Type': 'video/webm',
+					'Content-Length': outfiles[0].size,
+					Authorization: "Bearer "+access_token,
+					file
+				})
+			}
+			fetch(drive_url, drive_request).then( response => {
+				return(response.json());
+			}).then( list =>  {
+				console.log("Found a file called "+list.files[0].name);
+			});
+		}
+		
+		function No() {
+			console.log(outfiles)
+			console.log(gapi.client.getToken())
+			var fileMetadata = {
+				'name' : 'New Folder',
+				'mimeType' : 'application/vnd.google-apps.folder',
+				'parents': ['18gAj9XDfufNGEMj_1G3pdMOgs_oa0hig']
+			};
+			gapi.client.drive.files.create({
+				resource: fileMetadata,
+			}).then(function(response) {
+				switch(response.status){
+				case 200:
+					var file = response.result;
+					console.log('Created Folder Id: ', file.id);
+					break;
+				default:
+					console.log('Error creating the folder, '+response);
+					break;
+				}
+			});
+		}
+		
+		
+		if (window.File && window.FileReader && window.FileList && window.Blob) {
+		  // Great success! All the File APIs are supported.
+		} else {
+		  alert('The File APIs are not fully supported in this browser.');
+		}
+		
+		var output = [];
+		var outfiles = [];
+		function handleFileSelect(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
 
-      /**
-       *  Called when the signed in status changes, to update the UI
-       *  appropriately. After a sign-in, the API is called.
-       */
-      function updateSigninStatus(isSignedIn) {
-        if (isSignedIn) {
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'block';
-          listFiles();
-        } else {
-          authorizeButton.style.display = 'block';
-          signoutButton.style.display = 'none';
-        }
-      }
+			var files = evt.dataTransfer.files; // FileList object.
+			// files is a FileList of File objects. List some properties.
+			
+			for (var i = 0, f; f = files[i]; i++) {
+				output.push('<li><strong>', escape(f.name), '</strong> - ',
+						  f.size, ' bytes, last modified: ',
+						  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+						  '</li>');
+				outfiles.push(f)
+			}
+			console.log(f.size)
+			//10,517,814
+			
+			
+			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+		  }
 
-      /**
-       *  Sign in the user upon button click.
-       */
-      function handleAuthClick(event) {
-        gapi.auth2.getAuthInstance().signIn();
-      }
+		function handleDragOver(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+		}
 
-      /**
-       *  Sign out the user upon button click.
-       */
-      function handleSignoutClick(event) {
-        gapi.auth2.getAuthInstance().signOut();
-      }
+		  // Setup the dnd listeners.
+		var dropZone = document.getElementById('drop_zone');
+		dropZone.addEventListener('dragover', handleDragOver, false);
+		dropZone.addEventListener('drop', handleFileSelect, false);
+		  
+		function handleFileSelect2(evt) {
+			var files = evt.target.files; // FileList object
 
-      /**
-       * Append a pre element to the body containing the given message
-       * as its text node. Used to display the results of the API call.
-       *
-       * @param {string} message Text to be placed in pre element.
-       */
-      function appendPre(message) {
-        var pre = document.getElementById('content');
-        var textContent = document.createTextNode(message + '\n');
-        pre.appendChild(textContent);
-      }
+			for (var i = 0, f; f = files[i]; i++) {
+				output.push('<li><strong>', escape(f.name), '</strong> - ',
+					f.size, ' bytes, last modified: ',
+					f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+					'</li>');
+				outfiles.push(f)
+			}
+			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+		}
 
-      /**
-       * Print files.
-       */
-      function listFiles() {
-        gapi.client.drive.files.list({
-          'pageSize': 10,
-          'fields': "nextPageToken, files(id, name)"
-        }).then(function(response) {
-          appendPre('Files:');
-          var files = response.result.files;
-          if (files && files.length > 0) {
-            for (var i = 0; i < files.length; i++) {
-              var file = files[i];
-              appendPre(file.name + ' (' + file.id + ')');
-            }
-          } else {
-            appendPre('No files found.');
-          }
-        });
-      }
-
-    </script>
-
-    <script async defer src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
-	
-   
+		document.getElementById('files').addEventListener('change', handleFileSelect2, false);
+		  
+		get_access_token_using_saved_refresh_token();
+	</script>
 	<script>
 		$(document).ready(function () {
 		$.getJSON("https://api.jsonbin.io/b/5e1ea24db236b871b3621d94/latest", function (json) {
