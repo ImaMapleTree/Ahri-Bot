@@ -144,4 +144,7 @@ span:hover {color: #8688B5; cursor: pointer;}
 }
 .helper {color: white; opacity: 0;}
 
+.UPLB {color: #757575; border: 2px solid #3a4a5c; -moz-border-radius: 5px;  -webkit-border-radius: 5px; border-radius: 5px; margin-top: 13px; font-size: 26px; font-weight: bold; width: 60%; vertical-align: middle; position: relative; display: inline-block; padding: 3px;}
+.UPLB:hover {background-color: #f0f0f0;}
+
 
