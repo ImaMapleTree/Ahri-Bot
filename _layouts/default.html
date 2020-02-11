@@ -23,20 +23,21 @@
 		<span class="helper">SID</span>
 		<div>
 			<div class="popupCloseButton">&times;</div>
-			<h2 class="header-level-2">Upload Highlights!</h2>
+			<div id="UH2">
+				<h2 class="header-level-2">Upload Highlights!</h2>
+			</div>
 			<div id="drop_zone">
 				<p>Drop Files Here<br>or</p>
 				<input type="file" id="files" name="files[]" class="dead" accept="video/*" multiple />
 				<label for="files"><p class="Bfiles">Browse Files</p></label>
 			</div>
-			<div class="UPLB">
-				<p onclick="Upload()">Upload</p>
+			<div id="UP" class="UPLB">
+				<p id="UPLB" onclick="Upload()">Upload</p>
 			</div>
 			<output id="list"></output>
 		</div>
 	</div>
 	
-	/**
     <script type="text/javascript">
 		// Client ID and API key from the Developer Console
 		var CLIENT_ID = '470810586360-9g7v7qd3sus5dopivtbebcu447r4mf2u.apps.googleusercontent.com';
@@ -50,6 +51,40 @@
 		var SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive';
 		
 		var access_token
+		
+		async function roughSizeOfObject(object) {
+
+			var objectList = [];
+			var stack = [ object ];
+			var bytes = 0;
+
+			while ( stack.length ) {
+				var value = stack.pop();
+
+				if ( typeof value === 'boolean' ) {
+					bytes += 4;
+				}
+				else if ( typeof value === 'string' ) {
+					bytes += value.length * 2;
+				}
+				else if ( typeof value === 'number' ) {
+					bytes += 8;
+				}
+				else if
+				(
+					typeof value === 'object'
+					&& objectList.indexOf( value ) === -1
+				)
+				{
+					objectList.push( value );
+
+					for( var i in value ) {
+						stack.push( value[ i ] );
+					}
+				}
+			}
+			return bytes;
+		}
 
 		function get_access_token_using_saved_refresh_token() {
 			// from the oauth playground
@@ -80,24 +115,110 @@
 			});
 		}
 		
-		function Upload() {
-			console.log(access_token)
-			const drive_url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media HTTP/1.1";
-			var file = outfiles[0];
+		async function UploadStart() {
+			var Upload_button = document.getElementById("UPLB");
+			Upload_button.innerHTML = "Uploading...";
+			return;
+		}
+		
+		function UploadFin(time) {
+			var Upload_button = document.getElementById("UPLB");
+			var Upload_complete = document.getElementById("UH2");
+			var FinTwice = document.getElementById("UPLFin");
+			if (FinTwice != null) {
+				FinTwice.innerHTML = "Upload Complete in " + time.toFixed(3) + " miliseconds";
+			} else {
+				var simple_node = document.createElement("H6");
+				var text_node = document.createTextNode("Upload Complete in " + time.toFixed(3) + " miliseconds");
+				simple_node.setAttribute("class", "header-level-6");
+				simple_node.setAttribute("id", "UPLFin");
+				simple_node.appendChild(text_node);
+				Upload_complete.appendChild(simple_node);
+			}
+			Upload_button.innerHTML = "Upload";
+			output = [];
+			outfiles = [];
+			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+		}
+		
+		async function Upload() {
+			await UploadStart();
+			//Upload_button.setAttribute("style", "background-color: white;");
+			
+			
+			const this_url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable";
+			const proxyurl = "https://cors-anywhere.herokuapp.com/";
+			var generateID = {"name": outfiles[0].name, "mimeType": outfiles[0].type, "description": "Uploaded by AhriBot", 'contentHints.indexableText': "hello"}
+			var initbytes = await roughSizeOfObject(generateID)
 			let drive_request = {
 				method: "POST",
 				headers: new Headers({
-					'Content-Type': 'video/webm',
-					'Content-Length': outfiles[0].size,
-					Authorization: "Bearer "+access_token,
-					file
-				})
+					'Authorization': "Bearer "+access_token,
+					'Content-Length': initbytes,
+					'Content-Type': 'application/json; charset=UTF-8',
+					'X-Upload-Content-Type': outfiles[0].type,
+					'X-Upload-Content-Length': outfiles[0].size,
+				}),
+				body: JSON.stringify(generateID)
+			};
+			let resumable_url = await Fetch(proxyurl + this_url, drive_request);
+			
+			//FILE_ID = future.id;
+			//let drive_url = proxyurl + "https://www.googleapis.com/upload/drive/v3/files/" + FILE_ID + "?uploadType=resumable";
+			var file = outfiles[0];
+			var request_times = file.size / 256000
+			var buffer = await file.arrayBuffer();
+			console.log(request_times)
+			let final_request = {
+				method: "PUT",
+				params: {
+					"uploadType": "resumable"
+				},
+				headers: new Headers({
+					'Host': 'www.googleapis.com',
+					'Authorization': "Bearer "+access_token,
+					'Content-Length': buffer.length,
+					'Content-Type': outfiles[0].type,
+				}),
+				body: buffer
+			};
+			let new_future = await Fetch(resumable_url, final_request);
+			
+			
+			
+			
+			var get_url = "https://www.googleapis.com/drive/v3/files/" + new_future.id + "?key=" + API_KEY;
+			let get_req = {
+				method: "GET",
+				headers: new Headers({
+					'Authorization': "Bearer "+access_token,
+					'Accept': 'application/json'
+					})
+			};
+			var data_future = await Fetch(get_url, get_req);
+			console.log(data_future);
+				
+		}
+			
+		async function Fetch(url, api_request){
+			var st = performance.now();
+			var Upload_button = document.getElementById("UPLB");
+			var Upload_text = document.getElementById("UP");
+			Upload_button.innerHTML = "Uploading...";
+			console.log(outfiles[0]);
+			let response = await fetch(url, api_request)
+			try {
+				let ARS = await response.json()
+				return(ARS);
+			} catch {
+				console.log("Getting Headers")
+				let headers = await response.headers;
+				let ARS = await headers.get('location')
+				return(ARS);
+			} finally {
+				var et = performance.now() - st;
+				console.log("Got a response in " + et.toFixed(3) + "miliseconds");
 			}
-			fetch(drive_url, drive_request).then( response => {
-				return(response.json());
-			}).then( list =>  {
-				console.log("Found a file called "+list.files[0].name);
-			});
 		}
 		
 		function No() {
