@@ -20,6 +20,7 @@ h3 {font-size: 36px;}
 .nmarginlr {margin-left:-9px; margin-right:-8px;}
 .textcenter {text-align: center; margin-left: auto; margin-right: auto;}
 .tbsize {background-color: #3A3335; height:80px; width: 100vw;}
+.tbdsp {width: 100%; vertical-align: middle; display: table; border-collapse: seperate; border-spacing: 10px;}
 .txwhite {color: #726DA8;}
 .noscroll {overflow-x: hidden;}
 .bovr {z-index:2; box-shadow: 0px 0px #485070;}
@@ -27,8 +28,9 @@ h3 {font-size: 36px;}
 .up {margin-top: -26px;}
 .padw {padding: 20px;}
 .bcheck {type: button; padding: 5px 20px; background-color: #FF713D; width: 25%;  text-align: center; border: 3px solid black; border-radius: 12px; color: white; shadow: 3px 3px 3px black; transition-duration:0.4s;}
-.txtcon {margin-top: -45px; height: 10px; padding: 25px; margin-left:auto;}
-.lazy {display: block;}
+.txtcon {height: 10px; margin-left: auto; margin-right: auto; width: 80%;}
+.lazy {display: float; position: absolute;}
+.txth {display: table-cell; vertical-align: middle; text-align: middle;}
 .newimage {float: left; margin-left: 20px;}
 .bbar {padding: 8px; width:1890px; background-color: black;}
 .inline {display: inline-block;}

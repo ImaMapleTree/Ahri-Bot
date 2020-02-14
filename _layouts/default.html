@@ -121,34 +121,31 @@
 			return;
 		}
 		
-		function UploadFin(time) {
+		function UploadFin() {
+			var Upload_button2 = document.getElementById("UP");
 			var Upload_button = document.getElementById("UPLB");
 			var Upload_complete = document.getElementById("UH2");
 			var FinTwice = document.getElementById("UPLFin");
-			if (FinTwice != null) {
-				FinTwice.innerHTML = "Upload Complete in " + time.toFixed(3) + " miliseconds";
-			} else {
-				var simple_node = document.createElement("H6");
-				var text_node = document.createTextNode("Upload Complete in " + time.toFixed(3) + " miliseconds");
-				simple_node.setAttribute("class", "header-level-6");
-				simple_node.setAttribute("id", "UPLFin");
-				simple_node.appendChild(text_node);
-				Upload_complete.appendChild(simple_node);
-			}
 			Upload_button.innerHTML = "Upload";
+			Upload_button.setAttribute("style", "background-color: white;");
 			output = [];
 			outfiles = [];
 			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
 		}
 		
 		async function Upload() {
+			var url = window.location.href
+			var Upload_button = document.getElementById("UP");
+			var ECC = url.split("#")[1]
+			var NEK = CookieCheck('ECC')
+			var DCCD = DEC(NEK);
 			await UploadStart();
-			//Upload_button.setAttribute("style", "background-color: white;");
+			Upload_button.setAttribute("style", "background-color: #f0f0f0;");
 			
 			
 			const this_url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable";
 			const proxyurl = "https://cors-anywhere.herokuapp.com/";
-			var generateID = {"name": outfiles[0].name, "mimeType": outfiles[0].type, "description": "Uploaded by AhriBot", 'contentHints.indexableText': "hello"}
+			var generateID = {"name": outfiles[0].name, "mimeType": outfiles[0].type, "description": "Uploaded by AhriBot", 'appProperties': {"id": NEK, "decid": DCCD}}
 			var initbytes = await roughSizeOfObject(generateID)
 			let drive_request = {
 				method: "POST",
@@ -183,23 +180,10 @@
 				body: buffer
 			};
 			let new_future = await Fetch(resumable_url, final_request);
+			UploadFin()
 			
 			
-			
-			
-			var get_url = "https://www.googleapis.com/drive/v3/files/" + new_future.id + "?key=" + API_KEY;
-			let get_req = {
-				method: "GET",
-				headers: new Headers({
-					'Authorization': "Bearer "+access_token,
-					'Accept': 'application/json'
-					})
-			};
-			var data_future = await Fetch(get_url, get_req);
-			console.log(data_future);
-				
-		}
-			
+		}	
 		async function Fetch(url, api_request){
 			var st = performance.now();
 			var Upload_button = document.getElementById("UPLB");
@@ -219,29 +203,6 @@
 				var et = performance.now() - st;
 				console.log("Got a response in " + et.toFixed(3) + "miliseconds");
 			}
-		}
-		
-		function No() {
-			console.log(outfiles)
-			console.log(gapi.client.getToken())
-			var fileMetadata = {
-				'name' : 'New Folder',
-				'mimeType' : 'application/vnd.google-apps.folder',
-				'parents': ['18gAj9XDfufNGEMj_1G3pdMOgs_oa0hig']
-			};
-			gapi.client.drive.files.create({
-				resource: fileMetadata,
-			}).then(function(response) {
-				switch(response.status){
-				case 200:
-					var file = response.result;
-					console.log('Created Folder Id: ', file.id);
-					break;
-				default:
-					console.log('Error creating the folder, '+response);
-					break;
-				}
-			});
 		}
 		
 		
@@ -340,26 +301,27 @@
 				document.cookie = "ECC=" + ECC + ";" + expires + "path=/;"
 			}
 			var NEK = CookieCheck('ECC')
-			var DL, ID, K = DEC(NEK)
+			//var DL, ID, K = DEC(NEK)
+			var DCCD = DEC(NEK)
 		});
     </script>
 	<div id="container">
-		<div class="verdana borderg textcenter txwhite tbsize bovr borderd">
-			<div class="lazy newimage">
-				<a href="{{ site.url }}" >
-				<img src="https://cdn.discordapp.com/attachments/593493405313663042/667510744752848896/AhriBot.png" width="80" height="80">
-				</a>
-			</div>
-			<div class="txtcon">
-				<h3 style=margin-top:32px;>
-					<span style=padding:50px; class="txth" onclick="GoPage('https://discordapp.com/api/oauth2/authorize?client_id=659987132986818560&permissions=268958832&scope=bot', tab=true)">Add to Server</span>
-					<span style=padding:50px; class="txth" onclick="GoPage('help.html')">Command Help</span>
-					<span style=padding:50px; class="txth" onclick="GoPage('https://www.patreon.com/ahribot', tab=true)">Donate</span>
-					<span style=padding:50px; class="txth" onclick="CheckAhri()", tab=true">Test</span>
-				</h3>
+		<div class="scale">
+			<div class="verdana borderg textcenter txwhite tbsize bovr borderd">
+				<div class="lazy newimage">
+					<a href="{{ site.url }}" >
+					<img src="https://cdn.discordapp.com/attachments/593493405313663042/667510744752848896/AhriBot.png" width="80" height="80">
+					</a>
+				</div>
+				<div class="txtcon">
+					<h3 class="tbdsp">
+						<span class="txth" onclick="GoPage('https://discordapp.com/api/oauth2/authorize?client_id=659987132986818560&permissions=268958832&scope=bot', tab=true)">Add to Server</span>
+						<span class="txth" onclick="GoPage('help.html')">Command Help</span>
+						<span class="txth" onclick="GoPage('https://www.patreon.com/ahribot', tab=true)">Donate</span>
+					</h3>
+				</div>
 			</div>
 		</div>
-		
 
 
 {% seo %}

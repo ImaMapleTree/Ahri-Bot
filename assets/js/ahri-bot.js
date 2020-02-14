@@ -87,5 +87,6 @@ function DEC(CL) {
 		var NS = NS + INTYON
 	}
 	NS = NS + FDS
-	console.log(NS)	
+	console.log(NS)
+	return NS;
 }
