@@ -6,35 +6,26 @@ layout: default
 
 # **Ahri Bot**
 
-#### Proudly used by **{{ site.data.stats.servers}}** servers
+## Proudly used by **{{ site.data.stats.servers}}** servers
 
-## A user-friendly League of Legends bot for discord, developed for the community as a passion project.
+****
 
-Ahri has a handful of easy-to-use features that provide fun and useful information to users. 
+### A user-friendly League of Legends bot for discord, developed for the community as a passion project.
+
+### Ahri has a handful of easy-to-use features that provide fun and useful information to users. 
+
+#### Current Commands
+_The usage of "-" denotes an optional argument. The commands below are shown with their default arguments and will be what the command defaults to if no arguments are specified._
+
+_[ ] Denotes a required input._
+
+| Command      | Description |
+| ----------- | ----------- |
+| a!lookup summoner -region NA -champion Ahri -max_games 50 -threshold 4 | Searches information on a given summoner. |
+| a!lookup champion -role [best/top/jg/mid/bot/sup] | Provides information on the requested champion. |
+| a!highlight upload | Creates an upload link for League highlights. The link is valid for 2 minutes once generated. DO NOT SHARE, otherwise your daily uploads may be used by other people, you have been warned.|
+| a!highlight list | Lists both the name and ID of all of your current highlights. |
+| a!highlight post [ID] | Posts the highlight of the given ID |
+| a!highlight rename [ID] [Name] | Renames a highlight, you must own the highlight to do this. |
 
 _Ahri bot is currently a work in progress, if you have any comments or suggestions head over to the support server and share them!_
-
-#### IMPORTANT
-
-### This website is still under development, for showcases I provided some temporary screenshots below.
-
-##### The "summary" page of a summoner's profile
-![summary](https://imgur.com/p99cciP.png)
-
-##### Page 2 shows the player's last match (build and kda)
-![lmbuild](https://imgur.com/WsAjeSp.png)
-
-##### Page 3 also shows the last match but gives damage and gold stats
-![lmkda](https://imgur.com/DWMh666.png)
-
-##### Page 4 goes more in-depth on a player's statistical best/worst matchups
-![matchup](https://imgur.com/7ETik40.png)
-
-##### Page 5 is shown when the player is in game and provides some basic-insight
-![live](https://imgur.com/M39mwqv.png)
-
-##### Here is the friends list feature where you can add summoners you quickly want to check out
-![flist](https://imgur.com/bKKhWxv.png)
-
-##### To see all of your friends' last match you can use showall and get a page for each friend
-![fshowall](https://imgur.com/OAIgzAZ.png)

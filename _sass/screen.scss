@@ -126,7 +126,7 @@ div.shell {
 body {
   background: #F6E8EA;
   font: normal normal 15px/1.5 Georgia, Palatino,” Palatino Linotype”, Times, “Times New Roman”, serif;
-  color: #FFBF46;
+  color: #dedaca;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -422,10 +422,6 @@ ul {
   padding-left: 1.35em;
 }
 
-ul li {
-  padding-left: 10px;
-  background: transparent url(../images/chevron.png) left 6px no-repeat;
-}
 
 blockquote {
   font-family: 'Open Sans', Myriad, Calibri, sans-serif;
@@ -475,11 +471,12 @@ pre code {
 }
 
 table {
-  background: #fff6e9;
+  background: #F6E8EA;
   display: table;
   width: 100%;
   border-collapse: separate;
-  border-bottom: 2px solid #bdb6ad;
+  border: solid #3A3335;
+  border-width: 3px 3px 3px 3px;
   margin: 10px 0;
 }
 
@@ -490,7 +487,7 @@ tr {
 th {
   display: table-cell;
   padding: 2px 10px;
-  border: solid #ece4d8;
+  border: solid #e0d3d5;
   border-width: 0 2px 2px 0;
   color: #cd596b;
   font-family: 'Open Sans', Myriad, Calibri, sans-serif;
@@ -501,8 +498,9 @@ th {
 td {
   display: table-cell;
   padding: 0 .7em;
-  border: solid #ece4d8;
+  border: solid #e0d3d5;
   border-width: 0 2px 2px 0;
+  color: #7c334f;
 }
 
 td:last-child, th:last-child {
@@ -541,6 +539,15 @@ dd p:first-child {
   margin-top: 0;
 }
 
+ul li {
+  padding-left: 16px;
+  background: transparent url(../images/chevron.png) left 9px no-repeat;
+  font-size: 1.6em;
+  font-family: 'Open Sans', Myriad, Calibri, sans-serif;
+  font-weight: bold;
+  color: #ffbea6;
+}
+
 .header-level-1 {
   font-size: 3.85em;
   border-bottom: .4em double #F6E8EA;
@@ -552,31 +559,33 @@ dd p:first-child {
 }
 
 .header-level-2 {
-  font-size: 1.58em;
-  color: #7c334f;
-  margin: .3em 0 .3em;
-  /*border-bottom: .1em solid #D3CCC1;*/
-  line-height: 1.2;
-  padding-bottom: 10px
+  margin: .3em 0;
+  font-size: 2.6em;
+  font-stretch: expanded;
+  color: #F6E8EA; /*FFBF46*/
+  text-align: center;
 }
 
 .header-level-3 {
-  margin: .3em 0 .3em;
-  font-size: 1.45em;
+  /*margin: 0em 0; */
+  font-size: 1.40em;
+  font-stretch: expanded;
+  color: #ffe4c7;
+  text-align: center;
 }
 
 .header-level-4 {
   margin: .3em 0;
   font-size: 2.6em;
-  font-stretch: expanded;
-  color: #FFBF46;
+  font-stretch: condensed;
+  color: #7c334f;
   text-align: center;
 }
 
 .header-level-5 {
   margin: .7em 0;
   font-size: 1.3em;
-  color: #FFBF46;
+  color: #F6E8EA;
 }
 
 .header-level-6 {
