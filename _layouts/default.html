@@ -20,8 +20,38 @@
     <script src="{{ '/assets/js/headsmart.min.js' | relative_url }}"></script>
 	<link rel="icon" href="{{ 'assets/images/AhriBotfavicon.png' | relative_url}}" type="image/x-icon" />
 	<div class="hover_bkgr_fricc">
-		<span class="helper">SID</span>
 		<div>
+			<span class="helper"></span>
+			<div class="right-box">
+				<div class="popupCloseButton">&times;</div>
+				<h2 class="header-level-2 other-box" style="color: #7c334f;">Upload Highlights!</h2>
+				<div id="UP" class="UPLB" onclick="Upload()">
+					<p id="UPLB">Upload</p>
+				</div>
+				<div id="log"></div>
+				<p class="warning">Links expire after 6 minutes, you can regenerate links using Ahri.</p>
+			</div>
+			<div class="left-box">
+				<div class="dz-container">
+					<div id="drop_zone" class="dz-content">
+						<div class="last-content">
+							<p>Drop Files Here<br>or</p>
+							<input type="file" id="files" name="files[]" class="dead" accept="video/*" multiple />
+							<label for="files"><p class="Bfiles">Browse Files</p></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!---
+	<div class="none">
+		<span class="noyhelper">SID</span>
+		<div>
+			<div class="thumbnail-container">
+				<img class="thumbnail" src="https://static.u.gg/assets/lol/riot_static/10.5.1/img/champion/Olaf.png">
+			</div>
 			<div class="popupCloseButton">&times;</div>
 			<div id="UH2">
 				<h2 class="header-level-2">Upload Highlights!</h2>
@@ -37,7 +67,7 @@
 			<output id="list"></output>
 		</div>
 	</div>
-	
+	--->
     <script type="text/javascript">
 		// Client ID and API key from the Developer Console
 		var CLIENT_ID = '470810586360-9g7v7qd3sus5dopivtbebcu447r4mf2u.apps.googleusercontent.com';
@@ -121,32 +151,59 @@
 			return;
 		}
 		
+		async function sleep(milliseconds) {
+			const date = Date.now();
+			let currentDate = null;
+			do {
+				currentDate = Date.now();
+			} while (currentDate - date < milliseconds);
+		}
+		
 		function UploadFin() {
+			var log = document.getElementById("log");
 			var Upload_button2 = document.getElementById("UP");
 			var Upload_button = document.getElementById("UPLB");
 			var Upload_complete = document.getElementById("UH2");
 			var FinTwice = document.getElementById("UPLFin");
 			Upload_button.innerHTML = "Upload";
+			Upload_button2.style.backgroundColor = "white";
 			Upload_button.setAttribute("style", "background-color: white;");
+			Upload_button2.addEventListener('click', Upload)
 			output = [];
 			outfiles = [];
-			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
 		}
 		
 		async function Upload() {
 			var url = window.location.href
 			var Upload_button = document.getElementById("UP");
 			var ECC = url.split("#")[1]
-			var NEK = CookieCheck('ECC')
+			var NEK = CookieCheck('ECC');
 			var DCCD = DEC(NEK);
+			var log = document.getElementById("log");
 			await UploadStart();
 			Upload_button.setAttribute("style", "background-color: #f0f0f0;");
 			
-			
+			log.innerHTML = "Starting Upload...";
+			var st = performance.now();
 			const this_url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable";
 			const proxyurl = "https://cors-anywhere.herokuapp.com/";
-			var generateID = {"name": outfiles[0].name, "mimeType": outfiles[0].type, "description": "Uploaded by AhriBot", 'appProperties': {"id": NEK, "decid": DCCD}}
-			var initbytes = await roughSizeOfObject(generateID)
+			var tag_children = document.getElementById("tag-container").children;
+			console.log(tag_children)
+			var tags = ''
+			for(i=0; i < tag_children.length; i++) {
+				tags = tags + '$$' + tag_children[i].innerHTML;
+			}
+			try {
+				var generateID = {"name": outfiles[0].name, "mimeType": outfiles[0].type, "description": "Uploaded by AhriBot", 'appProperties': {"id": NEK, "decid": DCCD, "tags": tags}}
+				var initbytes = await roughSizeOfObject(generateID)
+				log.innerHTML = log.innerHTML + "<br>Name:" + outfiles[0].name + ", bytes:" + initbytes.toString();
+			} catch {
+				log.innerHTML = log.innerHTML + "<br>Failed to upload, no file to upload."
+				UploadFin()
+				await sleep(1000);
+				ClearFile();
+				return;
+			}
 			let drive_request = {
 				method: "POST",
 				headers: new Headers({
@@ -159,13 +216,15 @@
 				body: JSON.stringify(generateID)
 			};
 			let resumable_url = await Fetch(proxyurl + this_url, drive_request);
+			var et = performance.now() - st;
+			log.innerHTML = log.innerHTML + "<br>Got a response from the server in " +  et.toFixed(2) + " miliseconds.";
 			
 			//FILE_ID = future.id;
 			//let drive_url = proxyurl + "https://www.googleapis.com/upload/drive/v3/files/" + FILE_ID + "?uploadType=resumable";
 			var file = outfiles[0];
 			var request_times = file.size / 256000
 			var buffer = await file.arrayBuffer();
-			console.log(request_times)
+			log.innerHTML = log.innerHTML + "<br>Sending video data...";
 			let final_request = {
 				method: "PUT",
 				params: {
@@ -180,8 +239,11 @@
 				body: buffer
 			};
 			let new_future = await Fetch(resumable_url, final_request);
+			log.innerHTML = log.innerHTML + "<br>Data send!";
+			var et = (performance.now() - st)/1000;
+			log.innerHTML = log.innerHTML + "<br>Upload complete in " + et.toFixed(3) + " seconds."
 			UploadFin()
-			
+			ClearFile();
 			
 		}	
 		async function Fetch(url, api_request){
@@ -205,6 +267,17 @@
 			}
 		}
 		
+		function getJsonFromUrl(url) {
+			if(!url) url = location.search;
+			var query = url.substr(1);
+			var result = {};
+			query.split("&").forEach(function(part) {
+				var item = part.split("=");
+				result[item[0]] = decodeURIComponent(item[1]);
+			});
+			return result;
+		}
+		
 		
 		if (window.File && window.FileReader && window.FileList && window.Blob) {
 		  // Great success! All the File APIs are supported.
@@ -214,6 +287,17 @@
 		
 		var output = [];
 		var outfiles = [];
+		function ClearFile() {
+			document.getElementsByClassName('me-thumbnail')[0].remove();
+			document.getElementsByClassName('last-content')[0].style.display = "block";
+			document.getElementsByClassName('popupCloseButton2')[0].remove();
+			document.getElementById('video-title').remove();
+			document.getElementById('video-subtitle').remove();
+			document.getElementById('tag-title').remove();
+			document.getElementById('tag-bar').remove();
+			document.getElementById('tag-container').remove();
+			document.getElementById('log').innerHTML = '';
+		}
 		function handleFileSelect(evt) {
 			evt.stopPropagation();
 			evt.preventDefault();
@@ -221,19 +305,64 @@
 			var files = evt.dataTransfer.files; // FileList object.
 			// files is a FileList of File objects. List some properties.
 			
-			for (var i = 0, f; f = files[i]; i++) {
-				output.push('<li><strong>', escape(f.name), '</strong> - ',
-						  f.size, ' bytes, last modified: ',
-						  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-						  '</li>');
-				outfiles.push(f)
-			}
+			file = files[0]
+			output.push('<li><strong>', escape(file.name), '</strong> - ',
+					  file.size, ' bytes, last modified: ',
+					  file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a',
+					  '</li>');
+			outfiles.push(file)
+			if (file.type.match('image')) {
+				fileReader.onload = function() {
+				  var img = document.createElement('img');
+				  img.src = fileReader.result;
+				  document.getElementsByTagName('div')[0].appendChild(img);
+				};
+				fileReader.readAsDataURL(file);
+			} else {
+				console.log("testing");
+				fileReader.onload = function() {
+					var blob = new Blob([fileReader.result], {type: file.type});
+					var url = URL.createObjectURL(blob);
+					var video = document.createElement('video');
+					var timeupdate = function() {
+					if (snapImage()) {
+					  video.removeEventListener('timeupdate', timeupdate);
+					  video.pause();
+					}
+				};
+				video.addEventListener('loadeddata', function() {
+					if (snapImage()) {
+						video.removeEventListener('timeupdate', timeupdate);
+					}
+				});
+				var snapImage = function() {
+					var canvas = document.createElement('canvas');
+					canvas.width = video.videoWidth;
+					canvas.height = video.videoHeight;
+					canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+					var image = canvas.toDataURL();
+					var success = image.length > 100000;
+					if (success) {
+						var img = document.createElement('img');
+						img.src = image;
+						document.getElementsByTagName('div')[0].appendChild(img);
+						URL.revokeObjectURL(url);
+						}
+					return success;
+					};
+					video.addEventListener('timeupdate', timeupdate);
+					video.preload = 'metadata';
+					video.src = url;
+					// Load video in Safari / IE11
+					video.muted = true;
+					video.playsInline = true;
+					video.play();
+				};
+				fileReader.readAsArrayBuffer(file);
+				}
 			console.log(f.size)
-			//10,517,814
-			
-			
 			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-		  }
+		}
 
 		function handleDragOver(evt) {
 			evt.stopPropagation();
@@ -246,18 +375,175 @@
 		dropZone.addEventListener('dragover', handleDragOver, false);
 		dropZone.addEventListener('drop', handleFileSelect, false);
 		  
+		function RemoveTag(element) {
+			console.log(this)
+			element.remove();
+		}
+			
+		function AddTag() {
+			var tag_bar = document.getElementsByClassName("tag-adder")[0];
+			var tag_container = document.getElementById("tag-container");
+			var tag = tag_bar.value;
+			if (tag != '') {
+				var tag_box = document.createElement('span');
+				tag_box.innerHTML = tag;
+				tag_box.style.float = "left";
+				tag_box.style.color = "grey";
+				tag_box.style.marginTop = "6px";
+				tag_box.style.marginRight = "6px";
+				tag_box.style.fontFamily = "Open Sans, Myriad, Calibri, sans-serif";
+				tag_box.style.padding = "4px 4px 4px 4px";
+				tag_box.style.border = "grey solid 2px";
+				tag_box.setAttribute("onclick", "RemoveTag(this)");
+				tag_bar.value = "";
+				tag_container.append(tag_box);
+			}
+		}
+		  
 		function handleFileSelect2(evt) {
 			var files = evt.target.files; // FileList object
+			var fileReader = new FileReader();
+			file = files[0]
+			output.push('<li><strong>', escape(file.name), '</strong> - ',
+					  file.size, ' bytes, last modified: ',
+					  file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a',
+					  '</li>');
+			outfiles.push(file)
+			console.log("testing");
+			var fileReader = new FileReader();
+			if (file.type.match('image')) {
+				fileReader.onload = function() {
+					var img = document.createElement('img');
+					img.src = fileReader.result;
+					document.getElementsByTagName('div')[0].appendChild(img);
+				};
+				fileReader.readAsDataURL(file);
+			} else {
+				fileReader.onload = function() {
+					var blob = new Blob([fileReader.result], {type: file.type});
+					var url = URL.createObjectURL(blob);
+					var video = document.createElement('video');
+					var timeupdate = function() {
+						if (snapImage()) {
+							video.removeEventListener('timeupdate', timeupdate);
+							video.pause();
+						}
+					};
+					video.addEventListener('loadeddata', function() {
+						if (snapImage()) {
+							video.removeEventListener('timeupdate', timeupdate);
+						}
+					});
+					var snapImage = function() {
+						var canvas = document.createElement('canvas');
+						canvas.width = video.videoWidth;
+						canvas.height = video.videoHeight;
+						canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+						var image = canvas.toDataURL();
+						var success = image.length > 100000;
+						if (success) {
+							var left_box = document.getElementsByClassName("left-box")[0];
+							var img = document.createElement('img');
+							img.src = image;
+							img.style.top = 0;
+							img.style.left = 0;
+							img.style.maxWidth = "None";
+							img.style.height = "100%";
+							img.style.width = "100%";
+							img.classList.add("me-thumbnail");
+							document.getElementById('drop_zone').appendChild(img);
+							document.getElementsByClassName('last-content')[0].style.display = "None";
+							URL.revokeObjectURL(url);
+							
+							var title = document.createElement('h2');
+							title.innerHTML = file.name;
+							title.classList.add('header-level-5');
+							title.style.color = "#ff9b0f";
+							title.style.fontSize = "x-large";
+							title.id = "video-title";
+							left_box.appendChild(title);
+							
+							var url = window.location.href;
+							var url_params = getJsonFromUrl(url);
+							var subtitle = document.createElement('h2');
+							subtitle.innerHTML = "Username: " + url_params["user_name"] + " | Uploads: " + url_params["uploads"] + " | Max Uploads: " + url_params["upload_limit"];
+							subtitle.classList.add('header-level-2');
+							subtitle.style.color = "#757575";
+							subtitle.style.fontSize = "22px";
+							subtitle.id = "video-subtitle";
+							left_box.appendChild(subtitle)
+							
+							var tag_title = document.createElement('h3');
+							tag_title.innerHTML = "Add Tags";
+							tag_title.classList.add('header-level-3');
+							tag_title.style.color = "#7c334f";
+							tag_title.style.marginTop = "15px";
+							tag_title.style.marginBottom = "5px";
+							tag_title.id = "tag-title";
+							left_box.appendChild(tag_title)
+							
+							var tag_bar = document.createElement('div');
+							tag_bar.style.verticalAlign = "middle";
+							tag_bar.style.width = "100%";
+							tag_bar.style.height = "3%";
+							tag_bar.style.margin = "0";
+							tag_bar.id = "tag-bar";
+							left_box.appendChild(tag_bar);
+							
+							var add_tags = document.createElement('INPUT');
+							add_tags.classList.add('tag-adder');
+							add_tags.setAttribute("type", "text");
+							add_tags.style.width = "85%";
+							add_tags.style.height = "100%";
+							add_tags.style.float = "left";
+							add_tags.style.marginLeft = "4%";
+							//add_tags.style.height = "5%";
+							tag_bar.appendChild(add_tags)
+							
+							var add_tag_button = document.createElement('div');
+							add_tag_button.innerHTML = "+";
+							add_tag_button.style.border = "medium solid grey";
+							add_tag_button.style.height = "100%";
+							add_tag_button.style.width = "5%";
+							add_tag_button.style.float = "left";
+							add_tag_button.classList.add('ADB');
+							add_tag_button.addEventListener('click', AddTag);
+							tag_bar.appendChild(add_tag_button)
+							
+							add_tags.addEventListener("keyup", function(event) {
+							  // Number 13 is the "Enter" key on the keyboard
+							if (event.keyCode === 13) {
+								event.preventDefault();
+								AddTag()
+							  }
+							});
 
-			for (var i = 0, f; f = files[i]; i++) {
-				output.push('<li><strong>', escape(f.name), '</strong> - ',
-					f.size, ' bytes, last modified: ',
-					f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-					'</li>');
-				outfiles.push(f)
+							
+							var tag_container = document.createElement('div');
+							tag_container.id = "tag-container";
+							tag_container.style.marginLeft = "4%";
+							left_box.appendChild(tag_container)
+							
+							
+							var close = document.createElement('div');
+							close.innerHTML = "&times;";
+							close.classList.add("popupCloseButton2");
+							close.addEventListener('click', ClearFile)
+							document.getElementById('drop_zone').appendChild(close);
+						}
+						return success;
+					};
+					video.addEventListener('timeupdate', timeupdate);
+					video.preload = 'metadata';
+					video.src = url;
+					// Load video in Safari / IE11
+					video.muted = true;
+					video.playsInline = true;
+					video.play();
+				};
+				fileReader.readAsArrayBuffer(file);
 			}
-			document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-		}
+		};
 
 		document.getElementById('files').addEventListener('change', handleFileSelect2, false);
 		  
@@ -278,7 +564,7 @@
        });
 	   $(window).load(function () {
 		$(".trigger_popup_fricc").click(function(){
-		   $('.hover_bkgr_fricc').show();
+		   $('.hover_bkgr_fricc').css("display", "flex")
 		});
 		$('.popupCloseButton').click(function(){
 			$('.hover_bkgr_fricc').hide();
@@ -286,9 +572,10 @@
 		});
 		$(document).ready(function (){
 			var url = window.location.href
-			var ECC = url.split("#")[1]
+			var NCC = url.split("#")[1]
+			var ECC = NCC.split("?")[0]
 			if (ECC != undefined) {
-				$('.hover_bkgr_fricc').show();
+				$('.hover_bkgr_fricc').css("display", "flex")
 				var EK = CookieCheck('ECC')
 				}
 			else {

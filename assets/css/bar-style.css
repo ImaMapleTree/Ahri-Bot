@@ -80,6 +80,8 @@ span:hover {color: #8688B5; cursor: pointer;}
     top:0;
     width:100%;
     z-index:10000;
+	justify-content: center;
+	align-items: center;
 }
 .hover_bkgr_fricc .helper{
     display:inline-block;
@@ -89,12 +91,10 @@ span:hover {color: #8688B5; cursor: pointer;}
 .hover_bkgr_fricc > div {
     background-color: #fff;
     box-shadow: 10px 10px 60px #555;
-    display: inline-block;
-    height: auto;
-    max-width: 551px;
-    min-height: 100px;
+    display: inline-grid;
+    height: 75%;
     vertical-align: middle;
-    width: 60%;
+    width: 70%;
     position: relative;
     border-radius: 8px;
     padding: 15px 5%;
@@ -116,19 +116,51 @@ span:hover {color: #8688B5; cursor: pointer;}
     height: 30px;
     text-align: center;
 }
+.popupCloseButton2 {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
 .popupCloseButton:hover {
     background-color: #ccc;
 }
+
+.popupCloseButton2:hover {
+    background-color: #ccc;
+}
+
+.ADB:hover {
+	background-color: #ccc;
+}
 #drop_zone {
-  border: 2px dashed #bbb;
+  border: 2px solid black;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  padding: 25px;
   text-align: center;
   font: 20pt bold 'Vollkorn';
   color: #bbb;
+  position: absolute;
+  vertical-align: center;
 }
+
+.dz-container {width: 100%; padding-top: 55%; position:relative; display: flex; align-items: center; justify-content: center;}
+.dz-content {vertical-align: center; position: absolute; top: 0; left: 0; bottom: 0; right: 0; text-align: center; display: flex; align-items: center; justify-content: center;}
+.last-content {width: 80%;}
+		
 .dead {
 	display: none;
 }
@@ -144,8 +176,18 @@ span:hover {color: #8688B5; cursor: pointer;}
 	border: 2px dashed black;
 }
 .helper {color: white; opacity: 0;}
-
 .UPLB {color: #757575; border: 2px solid #3a4a5c; -moz-border-radius: 5px;  -webkit-border-radius: 5px; border-radius: 5px; margin-top: 13px; font-size: 26px; font-weight: bold; width: 60%; vertical-align: middle; position: relative; display: inline-block; padding: 3px;}
 .UPLB:hover {background-color: #f0f0f0;}
-
+.thumbnail-container {position: relative; height: 100%; width: 100%;}
+.thumbnail {position: absolute; top: 0px; left: 0px; min-height: 15%; min-width: 20%; max-height: 75%; max-width: 100%;}
+.left-box {left: 0px; position: absolute; width: 50%; display: inline-block; height: 100%; border-right: black solid 2px;}
+.right-box {right: 0px; position: absolute; width: 50%; display: inline-block; height: 100%}
+.warning {margin-bottom: 10px; position: relative;}
+#log {
+	text-align: left;
+	height: 72%;
+	margin-left: 15px;
+	margin-top: 15px;
+	font-family: 'Open Sans', Myriad, Calibri, sans-serif;
+}
 
