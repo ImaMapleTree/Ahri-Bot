@@ -45,29 +45,6 @@
 		</div>
 	</div>
 	
-	<!---
-	<div class="none">
-		<span class="noyhelper">SID</span>
-		<div>
-			<div class="thumbnail-container">
-				<img class="thumbnail" src="https://static.u.gg/assets/lol/riot_static/10.5.1/img/champion/Olaf.png">
-			</div>
-			<div class="popupCloseButton">&times;</div>
-			<div id="UH2">
-				<h2 class="header-level-2">Upload Highlights!</h2>
-			</div>
-			<div id="drop_zone">
-				<p>Drop Files Here<br>or</p>
-				<input type="file" id="files" name="files[]" class="dead" accept="video/*" multiple />
-				<label for="files"><p class="Bfiles">Browse Files</p></label>
-			</div>
-			<div id="UP" class="UPLB">
-				<p id="UPLB" onclick="Upload()">Upload</p>
-			</div>
-			<output id="list"></output>
-		</div>
-	</div>
-	--->
     <script type="text/javascript">
 		// Client ID and API key from the Developer Console
 		var CLIENT_ID = '470810586360-9g7v7qd3sus5dopivtbebcu447r4mf2u.apps.googleusercontent.com';
@@ -180,6 +157,7 @@
 			var NEK = CookieCheck('ECC');
 			var DCCD = DEC(NEK);
 			var log = document.getElementById("log");
+			var name = document.getElementById('video-title').value
 			await UploadStart();
 			Upload_button.setAttribute("style", "background-color: #f0f0f0;");
 			
@@ -194,9 +172,9 @@
 				tags = tags + '$$' + tag_children[i].innerHTML;
 			}
 			try {
-				var generateID = {"name": outfiles[0].name, "mimeType": outfiles[0].type, "description": "Uploaded by AhriBot", 'appProperties': {"id": NEK, "decid": DCCD, "tags": tags}}
+				var generateID = {"name": name, "mimeType": outfiles[0].type, "description": "Uploaded by AhriBot", 'appProperties': {"id": NEK, "decid": DCCD, "tags": tags}}
 				var initbytes = await roughSizeOfObject(generateID)
-				log.innerHTML = log.innerHTML + "<br>Name:" + outfiles[0].name + ", bytes:" + initbytes.toString();
+				log.innerHTML = log.innerHTML + "<br>Name:" + name + ", bytes:" + initbytes.toString();
 			} catch {
 				log.innerHTML = log.innerHTML + "<br>Failed to upload, no file to upload."
 				UploadFin()
@@ -242,6 +220,7 @@
 			log.innerHTML = log.innerHTML + "<br>Data send!";
 			var et = (performance.now() - st)/1000;
 			log.innerHTML = log.innerHTML + "<br>Upload complete in " + et.toFixed(3) + " seconds."
+			outfiles = []
 			UploadFin()
 			ClearFile();
 			
@@ -455,10 +434,16 @@
 							document.getElementsByClassName('last-content')[0].style.display = "None";
 							URL.revokeObjectURL(url);
 							
-							var title = document.createElement('h2');
-							title.innerHTML = file.name;
+							var title = document.createElement('input');
+							title.value = file.name;
+							title.setAttribute("size", title.value.length);
 							title.classList.add('header-level-5');
+							title.style.outline = "None";
+							title.style.border = "None";
+							title.style.borderColor = "transparent";
 							title.style.color = "#ff9b0f";
+							title.style.fontFamily = "Open Sans, Myriad, Calibri, sans-serif";
+							title.style.textAlign = "center";
 							title.style.fontSize = "x-large";
 							title.id = "video-title";
 							left_box.appendChild(title);
